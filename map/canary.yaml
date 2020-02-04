@@ -22,7 +22,7 @@ spec:
       attempts: 3
       perTryTimeout: 1s
       retryOn: gateway-error,connect-failure,refused-stream
-    targetPort: 8080
+    targetPort: 5000
     trafficPolicy:
       tls:
         mode: ISTIO_MUTUAL
