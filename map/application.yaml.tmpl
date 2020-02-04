@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: ksphere-demo-map
 spec:
-  replicas: 2
+#  replicas: 2
   selector:
     matchLabels:
       app: ksphere-demo-map
@@ -28,36 +28,36 @@ spec:
         - name: CASSANDRA_KEYSPACE
           value: "images"
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: ksphere-demo-map
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 5000
-  selector:
-    app: ksphere-demo-map
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  annotations:
-    certmanager.k8s.io/issuer: letsencrypt-issuer
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
-  generation: 1
-  labels:
-    app.kubernetes.io/instance: ksphere-demo-map
-    app.kubernetes.io/managed-by: Tiller
-    app.kubernetes.io/name: ksphere-demo-map
-  name: ksphere-demo-map
-spec:
-  rules:
-  - http:
-      paths:
-      - backend:
-          serviceName: ksphere-demo-map
-          servicePort: 80
-        path: /ksphere-demo-map
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: ksphere-demo-map
+#spec:
+#  type: LoadBalancer
+#  ports:
+#  - port: 80
+#    targetPort: 5000
+#  selector:
+#    app: ksphere-demo-map
+#---
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  annotations:
+#    certmanager.k8s.io/issuer: letsencrypt-issuer
+#    kubernetes.io/ingress.class: traefik
+#    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+#  generation: 1
+#  labels:
+#    app.kubernetes.io/instance: ksphere-demo-map
+#    app.kubernetes.io/managed-by: Tiller
+#    app.kubernetes.io/name: ksphere-demo-map
+#  name: ksphere-demo-map
+#spec:
+#  rules:
+#  - http:
+#      paths:
+#      - backend:
+#          serviceName: ksphere-demo-map
+#          servicePort: 80
+#        path: /ksphere-demo-map
