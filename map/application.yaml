@@ -6,6 +6,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ksphere-demo-map
+  namespace: map
 spec:
 #  replicas: 2
   selector:
@@ -35,7 +36,7 @@ apiVersion: flagger.app/v1alpha3
 kind: Canary
 metadata:
   name: ksphere-demo-map
-  namespace: default
+  namespace: map
 spec:
   targetRef:
     apiVersion: apps/v1
@@ -74,7 +75,7 @@ spec:
     threshold: 5
     webhooks:
     - metadata:
-        cmd: hey -z 1m -q 10 -c 2 http://ksphere-demo-map-canary.default:80/
+        cmd: hey -z 1m -q 10 -c 2 http://ksphere-demo-map-canary.map:80/
       name: load-test
       timeout: 5s
       url: http://flagger-loadtester.kubeaddons-flagger/
@@ -99,7 +100,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: ksphere-demo-map
-  namespace: default
+  namespace: map
 spec:
   maxReplicas: 4
   minReplicas: 2
